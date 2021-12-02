@@ -5,7 +5,7 @@ namespace Day02 // Note: actual namespace depends on the project name.
     {
         enum Direction { Forward, Down, Up };
 
-        static private int _horizontal;
+        static private int _horizontal = 0;
         static public int Horizontal
         {
             get => _horizontal;
@@ -14,13 +14,22 @@ namespace Day02 // Note: actual namespace depends on the project name.
                 : throw new ArgumentOutOfRangeException(nameof(Horizontal), "Must be non-negative.");
         }
 
-        static private int _depth;
+        static private int _depth = 0;
         static public int Depth
         {
             get => _depth;
             set => _depth = value >= 0
                 ? value
                 : throw new ArgumentOutOfRangeException(nameof(Depth), "Must be non-negative.");
+        }
+
+        static private int _aim = 0;
+        static public int Aim
+        {
+            get => _aim;
+            set => _aim = value >= 0
+                ? value
+                : throw new ArgumentOutOfRangeException(nameof(Aim), "Must be non-negative.");
         }
 
         public static void Main()
@@ -33,12 +42,13 @@ namespace Day02 // Note: actual namespace depends on the project name.
                 {
                     case Direction.Forward:
                         Horizontal += units;
+                        Depth += Aim * units;
                         break;
                     case Direction.Down:
-                        Depth += units;
+                        Aim += units;
                         break;
                     case Direction.Up:
-                        Depth -= units;
+                        Aim -= units;
                         break;
                     default:
                         throw new InvalidOperationException("Unknown direction.");
